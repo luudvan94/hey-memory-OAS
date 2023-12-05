@@ -1,0 +1,78 @@
+openapi: 3.0.3
+info:
+  title: My memory app API
+  description: |-
+      details about the app API endpoints
+  version: 1.0.11
+servers:
+  - url: https://ReplaceLater/api/v1
+tags:
+  - name: user
+    description: Everything about memory app API
+paths:
+  /user:
+    get:
+      description: to fetch details of a user corresponding to an id
+      responses:
+        "200":
+          description: a specific user along with details
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/User"
+        "400":
+          description: bad request regarding query params
+        "404":
+          description: user not found
+        "500":
+          description: internal server error
+    post:
+      description: to register a new user to the db
+      responses:
+        "200":
+          description: details of the new user that has been registered
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/User"
+        "400":
+          description: bad request regarding query params
+        "403": 
+          description: not authorized
+        "404":
+          description: user not found
+        "500":
+          description: internal server error
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type:
+            string
+          format:
+            email
+        firstName: 
+          type: string
+        lastName: 
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date
+        updatedAt:
+          type: string
+          format: date
+          
+        
+      
